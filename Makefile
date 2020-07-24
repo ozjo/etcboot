@@ -6,6 +6,8 @@ TARGET := etcboot
 Q        := @
 CC       := gcc
 PRJROOT  := .
+PCIEBOOT := $(PRJROOT)/pcieboot
+UARTBOOT := $(PRJROOT)/uartboot
 CFLAGS   :=
 INCS     :=
 SRCS     :=
@@ -21,6 +23,11 @@ SCRS_DIR += $(PRJROOT)
 SRCS     += $(wildcard $(SCRS_DIR)/*.c)
 OBJS     += $(patsubst %.c, %.o, $(filter %.c, $(SRCS)))
 
+################################################################################
+# Configure
+################################################################################
+TARCHIP  :=
+
 
 all: $(TARGET)
 
@@ -28,7 +35,15 @@ $(TARGET): $(OBJS)
 	$(Q)echo "[BUILD] $(notdir $@)"
 	$(Q)$(CC) -o $(TARGET) $(OBJS)
 
-$(PRJROOT)/%.o: %.c
+$(PRJROOT)/%.o: $(PRJROOT)/%.c
+	$(Q)echo "[CC]    $(notdir $@)"
+	$(Q)$(CC) $(CFLAGS) $(INCS) $<
+
+$(PRJROOT)/%.o: $(UARTBOOT)/%.c
+	$(Q)echo "[CC]    $(notdir $@)"
+	$(Q)$(CC) $(CFLAGS) $(INCS) $<
+
+$(PRJROOT)/%.o: $(PCIEBOOT)/%.c
 	$(Q)echo "[CC]    $(notdir $@)"
 	$(Q)$(CC) $(CFLAGS) $(INCS) $<
 
