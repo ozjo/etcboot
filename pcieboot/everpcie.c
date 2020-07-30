@@ -1,13 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "pciecmd.h"
 
 /* opcode */
-#define EVER_PCIEBOOT_OPC_STATUS_CHECK    (0x01)
-#define EVER_PCIEBOOT_OPC_SET_ADDRESS     (0x02)
-#define EVER_PCIEBOOT_OPC_SET_DATA_LEN    (0x03)
-#define EVER_PCIEBOOT_OPC_DOWNLOAD_DAT    (0x04)
-#define EVER_PCIEBOOT_OPC_JUMP_TO_IMG     (0x05)
+#define EVER_PCIEBOOT_OPC_STATUS_CHECK    (0x1)
+#define EVER_PCIEBOOT_OPC_SET_ADDRESS     (0x2)
+#define EVER_PCIEBOOT_OPC_SET_DATA_LEN    (0x3)
+#define EVER_PCIEBOOT_OPC_DOWNLOAD_DAT    (0x4)
+#define EVER_PCIEBOOT_OPC_JUMP_TO_IMG     (0x5)
 /* cplcode */
 #define EVER_PCIEBOOT_CPL_OK                                  (0x00)
 #define EVER_PCIEBOOT_CPL_ERR_INVAL_OP                        (0x01)
@@ -29,56 +30,37 @@
 #define EVER_PCIEBOOT_CPL_ERR_LEVEL_VIOLATION                 (0x70)
 #define EVER_PCIEBOOT_CPL_ERR_COMMAND_BLOCK                   (0xFF)
 
-uint32_t ever_status(uint8_t subopc)
+int ever_status(uint8_t subopc, uint32_t *st, uint32_t *cpl)
 {
-	uint32_t cpl = EVER_PCIEBOOT_CPL_OK;
+	int retval = EXIT_SUCCESS;
 
-	return cpl;
+	return retval;
 }
 
-uint32_t ever_address(uint64_t addr)
+int ever_address(uint64_t a, uint32_t *c)
 {
-	uint32_t cpl = EVER_PCIEBOOT_CPL_OK;
+	int retval = EXIT_SUCCESS;
 
-	return cpl;
-
+	return retval;
 }
 
-uint32_t ever_image(uint8_t *img, uint32_t len)
+int ever_download(uint8_t *i, uint32_t l, uint32_t *c)
 {
-	uint32_t cpl = EVER_PCIEBOOT_CPL_OK;
+	int retval = EXIT_SUCCESS;
 
-	return cpl;
-
+	return retval;
 }
 
-uint32_t ever_jump(uint64_t jump)
+int ever_run(uint32_t t, uint32_t *c)
 {
-	uint32_t cpl = EVER_PCIEBOOT_CPL_OK;
+	int retval = EXIT_SUCCESS;
 
-	return cpl;
-
+	return retval;
 }
 
-uint32_t ever_download(uint8_t *img, uint32_t len, uint64_t addr)
-{
-	uint32_t cpl = EVER_PCIEBOOT_CPL_OK;
-
-	return cpl;
-}
-
-uint32_t ever_run(uint8_t *img, uint32_t len, uint64_t addr)
-{
-	uint32_t cpl = EVER_PCIEBOOT_CPL_OK;
-
-	return cpl;
-}
-
-pcieboot_command_t everpcie_cmd = {
+pcieboot_opr_t everpcie_opr = {
 	.status = ever_status,
 	.address = ever_address,
-	.image = ever_image,
-	.jump = ever_jump,
 	.download = ever_download,
 	.run = ever_run,
 };

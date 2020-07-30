@@ -3,7 +3,7 @@
 
 #include "uartcmd.h"
 
-int do_uartcmd(uint8_t chip, bootcfg_t cfg)
+int do_uartcmd(uint8_t chip, bootcfg_t *cfg)
 {
 	uint32_t cpl = 0;
 
